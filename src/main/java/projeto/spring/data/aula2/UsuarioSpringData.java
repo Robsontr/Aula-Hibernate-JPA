@@ -5,11 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity // Mapeia a classe para criação no BD
 public class UsuarioSpringData {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id // Indica chave primária
+	@GeneratedValue(strategy = GenerationType.AUTO) // Junto com o @Id cria id automatico e único
 	private long id;
 
 	private String login;
@@ -17,6 +17,8 @@ public class UsuarioSpringData {
 	private String senha;
 
 	private String nome;
+
+	private Integer idade;
 
 	private String email;
 
@@ -50,6 +52,14 @@ public class UsuarioSpringData {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Integer getIdade() {
+		return idade;
+	}
+
+	public void setIdade(Integer idade) {
+		this.idade = idade;
 	}
 
 	public String getEmail() {
