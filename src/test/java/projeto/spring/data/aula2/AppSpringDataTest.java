@@ -1,5 +1,6 @@
 package projeto.spring.data.aula2;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -87,9 +88,55 @@ public class AppSpringDataTest {
 	public void testeDelete() {
 
 		// Consulta primeiro para depois deletar
-		Optional<UsuarioSpringData> usuarioSpringData = interfaceSpringDataUser.findById(6L);
+		Optional<UsuarioSpringData> usuarioSpringData = interfaceSpringDataUser.findById(18L);
 
 		interfaceSpringDataUser.delete(usuarioSpringData.get());
+
+	}
+
+	@Test
+	public void testeConsultaNome() {
+
+		List<UsuarioSpringData> list = interfaceSpringDataUser.buscaPorNome("Gabriella");
+
+		for (UsuarioSpringData usuarioSpringData : list) {
+
+			System.out.println();
+			System.out.println("ID: " + usuarioSpringData.getId());
+			System.out.println("Nome: " + usuarioSpringData.getNome());
+			System.out.println("Idade: " + usuarioSpringData.getIdade());
+			System.out.println("Login: " + usuarioSpringData.getLogin());
+			System.out.println("Senha: " + usuarioSpringData.getSenha());
+			System.out.println("Email: " + usuarioSpringData.getEmail());
+
+		}
+
+	}
+
+	@Test
+	public void testeConsultaNomeParam() {
+
+		UsuarioSpringData usuarioSpringData = interfaceSpringDataUser.buscaPorNomeParam("Gabriella Beauty");
+
+		System.out.println("ID: " + usuarioSpringData.getId());
+		System.out.println("Nome: " + usuarioSpringData.getNome());
+		System.out.println("Idade: " + usuarioSpringData.getIdade());
+		System.out.println("Login: " + usuarioSpringData.getLogin());
+		System.out.println("Senha: " + usuarioSpringData.getSenha());
+		System.out.println("Email: " + usuarioSpringData.getEmail());
+		System.out.println();
+
+	}
+
+	@Test
+	public void testeDeletePorNome() {
+		interfaceSpringDataUser.deletePorNome("José");
+	}
+
+	@Test
+	public void testeUpdatePorNome() {
+
+		interfaceSpringDataUser.updateEmailPorNome("gabriellaB@gmail.com", "Gabriella Beauty");
 
 	}
 
