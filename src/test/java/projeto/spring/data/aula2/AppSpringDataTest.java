@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import projeto.spring.data.aula.model.dao.InterfaceSpringDataUser;
+import projeto.spring.data.aula.model.dao.InterfaceTelefone;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/spring-config.xml" })
@@ -18,6 +19,9 @@ public class AppSpringDataTest {
 	// Injeção da interface
 	@Autowired
 	private InterfaceSpringDataUser interfaceSpringDataUser;
+
+	@Autowired
+	private InterfaceTelefone interfaceTelefone;
 
 	@Test
 	public void testeInsert() {
@@ -41,7 +45,7 @@ public class AppSpringDataTest {
 	@Test
 	public void testeConsulta() {
 
-		Optional<UsuarioSpringData> usuarioSpringData = interfaceSpringDataUser.findById(5L);
+		Optional<UsuarioSpringData> usuarioSpringData = interfaceSpringDataUser.findById(1L);
 
 		System.out.println("ID: " + usuarioSpringData.get().getId());
 		System.out.println("Nome: " + usuarioSpringData.get().getNome());
@@ -50,6 +54,11 @@ public class AppSpringDataTest {
 		System.out.println("Senha: " + usuarioSpringData.get().getSenha());
 		System.out.println("Email: " + usuarioSpringData.get().getEmail());
 
+		for (Telefone t : usuarioSpringData.get().getTelefones()) {
+			System.out.println(t.getTipo() + ": " + t.getNumero());
+
+		}
+		System.out.println();
 	}
 
 	@Test
@@ -137,6 +146,21 @@ public class AppSpringDataTest {
 	public void testeUpdatePorNome() {
 
 		interfaceSpringDataUser.updateEmailPorNome("gabriellaB@gmail.com", "Gabriella Beauty");
+
+	}
+
+	// Adiciona números de telefone independentes, 1 para muitos (Tabela Relacional)
+	@Test
+	public void testeInsertTelefone() {
+
+		Optional<UsuarioSpringData> usuarioSpringData = interfaceSpringDataUser.findById(2L);
+
+		Telefone telefone = new Telefone();
+		telefone.setTipo("Casa");
+		telefone.setNumero("44302561491");
+		telefone.setUsuarioSpringData(usuarioSpringData.get());
+
+		interfaceTelefone.save(telefone);
 
 	}
 
